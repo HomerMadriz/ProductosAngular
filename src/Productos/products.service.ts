@@ -11,6 +11,7 @@ export class ProductsService {
   uid = 100;
 
   productSubject = new Subject<Product[]>();
+  monitorSubject = new Subject<number[]>();
 
   constructor() {
     this.products = [
@@ -54,8 +55,13 @@ export class ProductsService {
      this.products.push(new Product(this.uid++, nombre, marca, desc, precio, existencia, espec));
    }
 
-   addToMonitor(ids: number[]): void {
-    ids.forEach((id) => this.monitoreo.push(id));
+   addToMonitor(ids: number[]): void { 
+    ids.forEach((id) => {
+      const monitorPos: number = this.monitoreo.findIndex((prod) => prod === id);
+      if (monitorPos === -1) {
+        this.monitoreo.push(id);
+      }
+    });
    }
 
    getMonitor(): number[] {
@@ -65,5 +71,7 @@ export class ProductsService {
    deleteMonitor(id: number): void {
     const deleteIndex = this.monitoreo.findIndex((uid) => uid === id);
     this.monitoreo.splice(deleteIndex, 1);
+    console.log(this.monitoreo);
+    this.monitorSubject.next(this.getMonitor());
    }
 }

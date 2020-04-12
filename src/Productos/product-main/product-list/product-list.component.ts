@@ -30,9 +30,15 @@ export class ProductListComponent implements OnInit {
     this.listMode = this.router.url.includes('/product');
 
     this.productService.productSubject.subscribe((data) => {
-      console.log('Observando desde constructor(): ' + data);
+      console.log('Observando productos: ' + data);
       this.productList = data;
       this.filtro = this.productList;
+    });
+
+    this.productService.monitorSubject.subscribe((data) => {
+      console.log('Observando monitor' + data);
+      this.productMonitorList = data.map(id => productService.getProductById(id));
+      this.filtroMonitor = this.productMonitorList;
     });
    }
 
@@ -63,5 +69,9 @@ export class ProductListComponent implements OnInit {
 
   eliminarProducto(uid: number): void {
     this.productService.deleteProduct(uid);
+  }
+
+  eliminarMonitor(uid: number): void {
+    this.productService.deleteMonitor(uid);
   }
 }
