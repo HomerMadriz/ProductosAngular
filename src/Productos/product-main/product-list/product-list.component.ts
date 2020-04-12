@@ -46,11 +46,17 @@ export class ProductListComponent implements OnInit {
   }
 
   buscar() {
-    this.filtro = this.productList.filter((prod) => prod.nombre.toUpperCase().includes(this.busqueda.toUpperCase()));
+    this.filtro = this.productList.filter((prod) => {
+      return prod.nombre.toUpperCase().includes(this.busqueda.toUpperCase())
+      || prod.descripcion.toUpperCase().includes(this.busqueda.toUpperCase());
+    });
   }
 
   buscarEnMonitoreo() {
-    this.filtroMonitor = this.productMonitorList.filter((prod) => prod.nombre.toUpperCase().includes(this.busqueda.toUpperCase()));
+    this.filtroMonitor = this.productMonitorList.filter((prod) => {
+      return prod.nombre.toUpperCase().includes(this.busqueda.toUpperCase())
+      || prod.descripcion.toUpperCase().includes(this.busqueda.toUpperCase());
+    });
   }
 
   agregarAPorMonitorear(uid: number): void {
