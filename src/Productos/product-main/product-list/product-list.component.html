@@ -10,7 +10,7 @@
       <a name="" id="" class="btn btn-primary abutton" role="button" (click)="buscar()">Buscar producto</a>
     </div>
     <div class="ml-2">
-      <a *ngIf="listMode" class="btn btn-success abutton" role="button" (click)="monitorear()">Añadir seleccionados a
+      <a *ngIf="listMode" class="btn btn-success abutton" role="button" (click)="monitorear()" [class.disabled]="!activar">Añadir seleccionados a
         monitoreados</a>
     </div>
   </div>

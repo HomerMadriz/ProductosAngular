@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
   listMode: boolean;
   listaParaMonitorear: number[];
   productSubscription = new Subscription();
+  activar = false;
 
   constructor(private productService: ProductsService, private router: Router) {
     this.productList = this.productService.getProductos();
@@ -65,6 +66,11 @@ export class ProductListComponent implements OnInit {
       this.listaParaMonitorear.push(uid);
     } else {
       this.listaParaMonitorear.splice(existIndex, 1);
+    }
+    if(this.listaParaMonitorear.length > 0) {
+      this.activar = true;
+    } else {
+      this.activar = false;
     }
     console.log(this.listaParaMonitorear);
   }
