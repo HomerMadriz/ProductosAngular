@@ -1,22 +1,47 @@
-<p>product-list works!</p>
-<div class="row">
-  <div class="col-4">
-    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+  <!-- Lista modo normal -->
+<div *ngIf="listMode">
+  <p>product-list works! Modo lista</p>
+  <div class="row">
+    <div class="col-4">
+      <input type="text" class="form-control" [(ngModel)]="busqueda" (keydown.enter)="buscar()" name="" id=""
+        aria-describedby="helpId" placeholder="">
+    </div>
+    <div>
+      <a name="" id="" class="btn btn-primary abutton" role="button" (click)="buscar()">Buscar producto</a>
+    </div>
+    <div class="ml-2">
+      <a *ngIf="listMode" class="btn btn-success abutton" role="button" (click)="monitorear()">Añadir seleccionados a
+        monitoreados</a>
+    </div>
   </div>
-  <div>
-    <a name="" id="" class="btn btn-primary" href="#" role="button">Buscar producto</a>
-  </div>
-  <div class="ml-2">
-    <a nclass="btn btn-success" href="#" role="button">Añadir seleccionados a monitoreados</a>
+  <div class=" mt-2">
+    <ul>
+      <app-product *ngFor="let product of filtro" [producto]="product" [listMode]="listMode"
+        (monitorear)="agregarAPorMonitorear($event)" (eliminarProducto)="eliminarProducto($event)"></app-product>
+    </ul>
+    <div *ngIf="filtro.length < 1" class="alert alert-danger" role="alert">
+      <strong>Ningún producto concuerda con la búsqueda</strong>
+    </div>
   </div>
 </div>
-<div class=" mt-2">
-  <ul>
-    AQUÍ PONES EL COMPONENTE
-  </ul>
-
-  <div class="alert alert-danger" role="alert">
-    <strong>Ningún producto concuerda con la búsqueda</strong>
+<!-- Lista modo monitoreo -->
+<div *ngIf="!listMode">
+  <p>product-list works! Modo Monitoreo</p>
+  <div class="row">
+    <div class="col-4">
+      <input type="text" class="form-control" [(ngModel)]="busqueda" (keydown.enter)="buscarEnMonitoreo()" name="" id=""
+        aria-describedby="helpId" placeholder="">
+    </div>
+    <div>
+      <a name="" id="" class="btn btn-primary abutton" role="button" (click)="buscarEnMonitoreo()">Buscar producto</a>
+    </div>
   </div>
-
+  <div class=" mt-2">
+    <ul>
+      <app-product *ngFor="let product of filtroMonitor" [producto]="product" [listMode]="listMode"></app-product>
+    </ul>
+    <div *ngIf="filtroMonitor.length < 1" class="alert alert-danger" role="alert">
+      <strong>Ningún producto concuerda con la búsqueda</strong>
+    </div>
+  </div>
 </div>

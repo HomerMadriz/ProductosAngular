@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Product } from 'src/Productos/Product';
 
 @Component({
   selector: 'app-product',
@@ -6,10 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
+  @Input() producto: Product;
+  @Input() listMode: boolean;
+  @Output() monitorear = new EventEmitter();
+  @Output() eliminarProducto = new EventEmitter();
+  @Output() eliminarMonitor = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  marcarMonitoreo(): void {
+    console.log('Enviando al padre-> uid: ' + this.producto.uid);
+    this.monitorear.emit(this.producto.uid);
+  }
+
+  eliminarProductoLista(): void {
+    this.eliminarProducto.emit(this.producto.uid);
+  }
+
+  eliminarProductoMonitoreo(): void {
+    this.eliminarMonitor.emit(this.producto.uid);
   }
 
 }
