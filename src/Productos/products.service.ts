@@ -21,6 +21,9 @@ export class ProductsService {
     ];
 
     this.monitoreo = [];
+
+    this.productSubject.next(this.getProductos());
+    this.monitorSubject.next(this.getMonitor());
    }
 
    getProductos(): Product[] {
@@ -31,13 +34,9 @@ export class ProductsService {
     return this.products.find((prod) => prod.uid === id);
    }
 
-   updateProduct(id: number, nombre: string, marca: string, desc: string, precio: number, existencia: number): void {
-     const productPos: number = this.products.findIndex((prod) => prod.uid = id);
-     this.products[productPos].nombre = nombre;
-     this.products[productPos].marca = marca;
-     this.products[productPos].descripcion = desc;
-     this.products[productPos].precio = precio;
-     this.products[productPos].existencia = existencia;
+   updateProduct(producto: Product): void {
+     const productPos: number = this.products.findIndex((prod) => prod.uid = producto.uid);
+     this.products.splice(productPos, 1, producto);
    }
 
    deleteProduct(id: number): void {
@@ -51,11 +50,11 @@ export class ProductsService {
     this.productSubject.next(this.getProductos());
    }
 
-   addProduct(nombre: string, marca: string, desc: string, precio: number, existencia: number, espec: Especificacion[]): void {
-     this.products.push(new Product(this.uid++, nombre, marca, desc, precio, existencia, espec));
+   addProduct(newProduct: Product): void {
+     this.products.push(newProduct);
    }
 
-   addToMonitor(ids: number[]): void { 
+   addToMonitor(ids: number[]): void {
     ids.forEach((id) => {
       const monitorPos: number = this.monitoreo.findIndex((prod) => prod === id);
       if (monitorPos === -1) {

@@ -11,8 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductDetailComponent implements OnInit {
   producto: Product;
   uid: number;
-  constructor(private productService: ProductsService, private route: ActivatedRoute) {
-   }
+
+  constructor(private productService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
