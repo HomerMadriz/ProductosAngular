@@ -17,7 +17,7 @@
             <a name="" id="" class="btn btn-primary" href="#" role="button"><i class="fas fa-edit    "></i></a>
           </div>
           <div class="row mt-3">
-            <a name="" id="" class="btn btn-primary" href="#" role="button"><i class="fas fa-search    "></i></a>
+            <a name="" id="" class="btn btn-primary" href="#" [routerLink]="['/product', producto.uid]" role="button"><i class="fas fa-search    "></i></a>
           </div>
           <!-- Eliminar Producto de lista -->
           <div *ngIf="listMode" class="row mt-3">

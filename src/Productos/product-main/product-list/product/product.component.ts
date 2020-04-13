@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/Productos/Product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -13,7 +14,7 @@ export class ProductComponent implements OnInit {
   @Output() eliminarProducto = new EventEmitter();
   @Output() eliminarMonitor = new EventEmitter();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -30,5 +31,4 @@ export class ProductComponent implements OnInit {
   eliminarProductoMonitoreo(): void {
     this.eliminarMonitor.emit(this.producto.uid);
   }
-
 }
