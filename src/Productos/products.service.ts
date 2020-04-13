@@ -15,9 +15,9 @@ export class ProductsService {
 
   constructor() {
     this.products = [
-      new Product(this.uid++, 'Smartphone', 'LG', 'QuadCore 3GHZ', 12018.5, 5, []),
-      new Product(this.uid++, 'Smartwatch', 'SONY', '3GB RAM', 4999.9, 0, []),
-      new Product(this.uid++, 'SmartTV', 'SONY', '52", Conexión WIFI', 8999.9, 3, [])
+      new Product(this.uid++, 'Smartphone', 'LG', 'QuadCore 3GHZ', 12018.5, 5, [new Especificacion('RAM', '4', 'GB')]),
+      new Product(this.uid++, 'Smartwatch', 'SONY', '3GB RAM', 4999.9, 0, [new Especificacion('Material', 'Gold', '14k')]),
+      new Product(this.uid++, 'SmartTV', 'SONY', '52", Conexión WIFI', 8999.9, 3, [new Especificacion('RAM', '4', 'GB')])
     ];
 
     this.monitoreo = [];

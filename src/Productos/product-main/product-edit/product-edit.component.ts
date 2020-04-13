@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/Productos/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/Productos/Product';
+import { Product, Especificacion } from 'src/Productos/Product';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -15,6 +15,10 @@ export class ProductEditComponent implements OnInit {
   uid: number;
   creationMode: boolean;
   marcas: string[];
+  atributo: string;
+  valor: string;
+  unidad: string;
+  especs: Especificacion[] = [];
 
   constructor(private productService: ProductsService, private route: ActivatedRoute, private router: Router) {
     this.marcas = ['LG', 'SONY', 'SAMSUNG', 'APPLE', 'DELL'];
@@ -24,7 +28,7 @@ export class ProductEditComponent implements OnInit {
     // tslint:disable-next-line: deprecation
     this.creationMode = this.router.url.includes('/new');
     if (!this.creationMode) {
-      console.log("Esto no es creationMode");
+      console.log('Esto no es creationMode');
       this.route.params.subscribe((params) => {
         this.uid = Number(params.id);
         console.log(this.uid);
@@ -32,7 +36,7 @@ export class ProductEditComponent implements OnInit {
         console.log(this.producto);
       });
     } else {
-      this.newProduct = new Product(0, '', '', '', 0, 0, []);
+      this.newProduct = new Product(0, '', '', '', 0, 0, this.especs);
     }
   }
 
@@ -54,5 +58,28 @@ export class ProductEditComponent implements OnInit {
 
   cancelar(): void {
     this.router.navigate(['/product']);
+  }
+
+  addEspecificacion(): void {
+    this.newProduct.especificacion.push(new Especificacion(this.atributo, this.valor, this.unidad));
+  }
+
+  editarEspecificacion(): void {
+    this.producto.especificacion.push(new Especificacion(this.atributo, this.valor, this.unidad));
+  }
+
+  eliminarEspecificacion(at: string, val: string, un: string): void {
+    let pos: number;
+    if(this.creationMode) {
+      pos = this.newProduct.especificacion.findIndex((esp) => {
+        return esp.atributo === at || esp.valor === val || esp.unidad === un;
+      });
+      this.newProduct.especificacion.splice(pos, 1);
+    } else {
+      pos = this.producto.especificacion.findIndex((esp) => {
+        return esp.atributo === at || esp.valor === val || esp.unidad === un;
+      });
+      this.producto.especificacion.splice(pos, 1);
+    }
   }
 }

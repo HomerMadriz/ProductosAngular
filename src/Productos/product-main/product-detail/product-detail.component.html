@@ -19,10 +19,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td scope="row"></td>
-          <td></td>
-          <td></td>
+        <tr *ngFor="let espec of producto.especificacion">
+          <td scope="row">{{espec.atributo}}</td>
+          <td>{{espec.unidad}}</td>
+          <td>{{espec.valor}}</td>
         </tr>
       </tbody>
     </table>

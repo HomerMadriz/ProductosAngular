@@ -39,19 +39,19 @@
     <div class="row">
       <div class="col-2">
         <label for="">Atributo</label>
-        <input #v1 type="text" class="form-control">
+        <input #v1 type="text" class="form-control" ngModel [(ngModel)]="atributo" name="atributo">
       </div>
       <div class="col-2">
         <label for="">Valor</label>
-        <input #v2 type="text" class="form-control">
+        <input #v2 type="text" class="form-control" ngModel [(ngModel)]="valor" name="valor">
       </div>
       <div class="col-2">
         <label for="">Unidad</label>
-        <input #v3 type="text" class="form-control">
+        <input #v3 type="text" class="form-control" ngModel [(ngModel)]="unidad" name="unidad">
       </div>
       <div>
         <label for="" style="color:white">añadir</label>
-        <a name="" id="" class="form-control btn btn-success" href="#" role="button"> <i
+        <a name="" id="" class="form-control btn btn-success" role="button" (click)="addEspecificacion()"> <i
             class="fas fa-plus-circle    "></i></a>
       </div>
     </div>
@@ -67,11 +67,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row"></td>
-            <td></td>
-            <td></td>
-            <td><button class="btn btn-primary"><i class="fas fa-trash    "></i></button></td>
+          <tr *ngFor="let espec of newProduct.especificacion">
+            <td scope="row">{{espec.atributo}}</td>
+            <td>{{espec.unidad}}</td>
+            <td>{{espec.valor}}</td>
+            <td><button class="btn btn-primary" (click)="eliminarEspecificacion(espec.atributo, espec.unidad, espec.valor)"><i class="fas fa-trash    "></i></button></td>
           </tr>
         </tbody>
       </table>
@@ -83,7 +83,6 @@
 </div>
 
 <p>{{newProduct | json}}</p>
-
 
 <!-- Forma editar registro -->
 <div *ngIf="!creationMode">
@@ -126,19 +125,19 @@
     <div class="row">
       <div class="col-2">
         <label for="">Atributo</label>
-        <input #v1 type="text" class="form-control">
+        <input #v1 type="text" class="form-control" ngModel [(ngModel)]="atributo" name="atributo">
       </div>
       <div class="col-2">
         <label for="">Valor</label>
-        <input #v2 type="text" class="form-control">
+        <input #v2 type="text" class="form-control" ngModel [(ngModel)]="valor" name="valor">
       </div>
       <div class="col-2">
         <label for="">Unidad</label>
-        <input #v3 type="text" class="form-control">
+        <input #v3 type="text" class="form-control" ngModel [(ngModel)]="unidad" name="unidad">
       </div>
       <div>
         <label for="" style="color:white">añadir</label>
-        <a name="" id="" class="form-control btn btn-success" href="#" role="button"> <i
+        <a name="" id="" class="form-control btn btn-success" role="button" (click)="editarEspecificacion()"> <i
             class="fas fa-plus-circle    "></i></a>
       </div>
     </div>
@@ -154,11 +153,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row"></td>
-            <td></td>
-            <td></td>
-            <td><button class="btn btn-primary"><i class="fas fa-trash    "></i></button></td>
+          <tr *ngFor="let espec of producto.especificacion">
+            <td scope="row">{{espec.atributo}}</td>
+            <td>{{espec.valor}}</td>
+            <td>{{espec.unidad}}</td>
+            <td><button class="btn btn-primary" (click)="eliminarEspecificacion(espec.atributo, espec.unidad, espec.valor)"><i class="fas fa-trash    "></i></button></td>
           </tr>
         </tbody>
       </table>
